@@ -16,13 +16,14 @@ const findCategoryById = async (req, res, next, id) => {
 
 const create = async (req, res) => {
     try {
-        if (
-            !req.body.name 
-            || !req.body.descTitle 
-            || !req.body.description 
-            || req.body.image == 'null' 
-        ){
-            return res.status(200).json({type: 'error', message: 'Tous les champ sont requis!'});
+        if (!req.body.name) return res.status(200).json({error: 'Nom est requis!'});
+        if (!req.body.descTitle) return res.status(404).json({error: 'Titre du description est requis!'});
+        if (!req.body.description) return res.status(404).json({error: 'Description est requis!'});
+        if (req.body.image == 'null') return res.status(404).json({error: 'image est requis!'});
+
+        const imageSize = req.file.size / 1024;
+        if (imageSize > 500) {
+          return res.status(400).json({error: 'La taille de l\'image doit etre inferieure a 500k'})
         }
         let newCategory = { 
             name: req.body.name,

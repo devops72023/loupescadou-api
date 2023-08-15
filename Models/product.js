@@ -17,7 +17,6 @@ const productSchema = new mongoose.Schema({
         type: Number,
         trim: true,
         required: true,
-        maxlength: 32
     },
     category: {
         type: ObjectId,

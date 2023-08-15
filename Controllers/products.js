@@ -18,6 +18,10 @@ const create = async (req, res) => {
       about: req.body.description,
       photo : req.body.image
       }
+    const imageSize = req.file.size / 1024;
+    if (imageSize > 500) {
+      return res.status(400).json({error: 'La taille de l\'image doit etre inferieure a 500k'})
+    }
 
     const product = await new Product(newProduct);
 
