@@ -59,21 +59,25 @@ io.on("connection", (socket) => {
   socket.on("sdp", ({ from, to, sdp }) => {
     socket.to(to).emit("sdp", { from, sdp });
   });
-
+  
   socket.on("candidate", ({ from, to, candidate }) => {
     socket.to(to).emit("candidate", { from, candidate });
   });
-
+  
   // The chat events:
   socket.on("message", ({ from, to, message})=>{
     console.log("message from: ", from + ", to: ", to + ", message: ", message);
     socket.to(to).emit("message", { from, message });
   })
-
+  
   socket.on("end-call", ({ to }) => {
     socket.to(to).emit("end-call");
   });
-
+  
+  socket.on("position", ({ from, to, position }) => {
+    socket.to(to).emit("position", { from, position });
+  });
+  
   socket.on("disconnect", async () => {
     console.log(" disconnected socket " + socket.id);
     await UsersModel.findOneAndUpdate(
@@ -149,4 +153,5 @@ app.get('*', (req,res) =>{
 //   })
 // );
 
-server.listen(8080, () => console.log("Server listening on port 8080"));
+// server.listen(8080, () => console.log("Server listening on port 8080"));
+server.listen(8080, '0.0.0.0',() => console.log("Server listening on port 8080"));

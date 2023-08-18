@@ -1,0 +1,25 @@
+{
+  "$schema": "https://cdn.statically.io/gh/nguyenngoclongdev/cdn/main/schema/v7/terminal-keeper.json",
+  "theme": "tribe",
+  "active": "default",
+  "activateOnStartup": true,
+  "keepExistingTerminals": false,
+  "sessions": {
+    "default": [
+      [
+        {
+          "name": "frontend",
+          "commands": [
+            " npm run server \n"
+          ]
+        },
+        {
+          "name": "backend",
+          "commands": [
+            " \n"
+          ]
+        }
+      ]
+    ]
+  }
+}

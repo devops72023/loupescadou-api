@@ -306,7 +306,7 @@ const popular = async (req, res)=>{
   try {
     const products = await Product.find()
                               .populate('category')
-                              .limit(4)
+                              .limit(8)
     return res.status(200).json({'success': products})
   } catch (error) {
     return res.status(400).json({'error': error.message });

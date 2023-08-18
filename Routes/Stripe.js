@@ -35,8 +35,8 @@ router.post('/create-checkout-session', async (req, res) => {
             shipping_address_collection: {
                 allowed_countries : [ "FR" ]
             },
-            success_url:`${process.env.VITE_DOMAINE}/success`,
-            cancel_url: `${process.env.VITE_DOMAINE}/`,
+            success_url:`${process.env.DOMAINE}/success`,
+            cancel_url: `${process.env.DOMAINE}/`,
         });
 
         // console.log(' \n\n', session, '\n\n' );
