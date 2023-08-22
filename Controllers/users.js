@@ -165,6 +165,12 @@ const create = async (req, res) => {
 
 async function deleteUser(req, res) {
   try {
+    const user = await User.findById(req.profile._id);
+    if(user.role == 1){
+      const users = await User.find();
+      res.status(404).json({error: "You can't delete an administrator", users: users});
+      return;
+    }
     const result = await User.deleteOne({ _id: req.profile._id });
     if (result.deletedCount === 1) {
       try{
@@ -185,11 +191,24 @@ async function deleteUser(req, res) {
 async function deleteMultiple(req, res){
   try {
     let users = req.body;
+    await Promise.all(
+      users.map(async item => {
+        console.log(item)
+        const user = await User.findById(item);
+        console.log(user)
+        if(user.role == 1){
+          const users = await User.find();
+          res.status(404).json({error: "You can't delete an administrator", users: users});
+          return;
+        }
+      })
+    );
     await User.deleteMany({ _id: { $in: users }})
     users = await User.find()
     return res.status(200).json({success: 'Usere deleted successfully', users: users})
   } catch (error) {
-    res.status(400).json({error: error.message})
+    const users = await User.find();
+    res.status(400).json({error: error.message,  users: users})
   }
 }
 
