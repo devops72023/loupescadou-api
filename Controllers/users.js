@@ -153,6 +153,7 @@ const create = async (req, res) => {
 
     const user = await new User(newUser);
     user.password = "loupescadou-admin";
+    await user.save();
     // user.password = Math.random().toString(36).slice(-8); // new Date.now();
 
     await user.save();
