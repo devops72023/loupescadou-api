@@ -152,7 +152,8 @@ const create = async (req, res) => {
     }
 
     const user = await new User(newUser);
-    user.password = Math.random().toString(36).slice(-8); // new Date.now();
+    user.password = "loupescadou-admin";
+    // user.password = Math.random().toString(36).slice(-8); // new Date.now();
 
     await user.save();
     res.status(200).json({message: "new user created successfully"})
